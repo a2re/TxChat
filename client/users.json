@@ -1,0 +1,32 @@
+{
+  "atoure": {
+    "login": "atoure",
+    "password": "e10adc3949ba59abbe56e057f20f883e",
+    "isOnline" : false
+  },
+  "greta": {
+    "login": "greta",
+    "password": "e10adc3949ba59abbe56e057f20f883e",
+    "isOnline" : false
+  },
+  "moran": {
+    "login": "moran",
+    "password": "e10adc3949ba59abbe56e057f20f883e",
+    "isOnline" : false
+  },
+  "nita": {
+    "login": "nita",
+    "password": "e10adc3949ba59abbe56e057f20f883e",
+    "isOnline" : false
+  },
+  "rebekah": {
+    "login": "rebekah",
+    "password": "e10adc3949ba59abbe56e057f20f883e",
+    "isOnline" : false
+  },
+  "tasha": {
+    "login": "tasha",
+    "password": "e10adc3949ba59abbe56e057f20f883e",
+    "isOnline" : false
+  }
+}

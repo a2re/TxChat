@@ -1,0 +1,24 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="col-md-3 col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Utilisateurs</div>
+      <ul class="list-group">
+        <li ng-repeat="(id, u) in globals.users" ng-if="u.login != globals.currentUser.login" ng-class="{online: u.isOnline}"
+            class="list-group-item" ng-click="chatWith(u.login)">
+          {{u.login}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-xs-9">
+
+    <div class="col-md-12">
+    </div>
+  </div>
+  <div class="box">
+    <chat-box ng-repeat="(chatter, box) in chatters"></chat-box>
+  </div>
+
+</div><!-- /container -->
