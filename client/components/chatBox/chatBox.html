@@ -11,7 +11,9 @@
           </div>
         </div>
         <div class="panel-body msg_container_base" ng-show="!box.minimize">
-          <message-box ng-repeat="message in box.messages" message="message" login="globals.currentUser.login"></message-box>
+          <div>
+            <message-box ng-repeat="message in box.messages" message="message" login="globals.currentUser.login"></message-box>
+          </div>
         </div>
         <div class="panel-footer" ng-show="!box.minimize">
           <form ng-submit="send(message, chatter)">

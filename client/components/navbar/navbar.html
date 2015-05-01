@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
+<div class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarCtrl">
   <div class="container">
     <div class="navbar-header">
       <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
@@ -17,9 +17,9 @@
       </ul>
       <ul class="nav navbar-nav navbar-right" ng-if="globals.currentUser">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{globals.currentUser.login}} <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{currentUser}} <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Parametres</a></li>
+            <li><a href="#">Paramètres</a></li>
             <li class="divider"></li>
             <li><a href="/" ng-click="disconnect()">Déconnexion</a></li>
           </ul>

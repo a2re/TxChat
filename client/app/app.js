@@ -16,7 +16,7 @@ angular.module('txChatApp', [
   })
 
   .run(['$rootScope', '$location', '$cookieStore', '$http',
-    function ($rootScope, $location, $cookieStore, $http) {
+    function ($rootScope, $location, $cookieStore, $http, Authentication) {
       // keep user logged in after page refresh
       $rootScope.globals = $cookieStore.get('globals') || {};
       if ($rootScope.globals.currentUser) {
@@ -25,7 +25,7 @@ angular.module('txChatApp', [
 
       $rootScope.$on('$locationChangeStart', function (event, next, current) {
         // redirect to login page if not logged in
-        if ($location.path() !== '/' && !$rootScope.globals.currentUser) {
+        if ($location.path() !== '/' && !$rootScope.globals.currentUser && !$rootScope.currentUser) {
           $location.path('/');
         }
       });

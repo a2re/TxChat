@@ -1,23 +1,30 @@
 'use strict';
 
 angular.module('txChatApp')
-  .controller('RoomCtrl', function ($scope, $rootScope, SocketProvider, $cookieStore) {
-    if($cookieStore.get('chatters') == undefined) {
-      $cookieStore.put('chatters', {});
+  .controller('RoomCtrl', function ($scope, $rootScope, SocketProvider, $cookieStore, Authentication) {
+
+    if($rootScope.globals.currentUser) {
+      $rootScope.currentUser = $rootScope.globals.currentUser.login;
     }
-    $scope.chatters = $cookieStore.get('chatters');
+
+    $scope.chatters = {};
+    Authentication.getUsers().then(function(users) {
+      $rootScope.users = users;
+    }, function(error) {
+      $scope.error = error;
+    });
+    console.log($rootScope.currentUser);
+    console.log($rootScope.users);
 
     $scope.chatWith = function(username) {
       if($scope.chatters[username] === undefined) {
         var chatter = new Chatter(username);
         $scope.chatters[username] = chatter;
       }
-      $cookieStore.put('chatters', $scope.chatters);
     };
 
     $scope.closeChat = function(username) {
       delete $scope.chatters[username];
-      $cookieStore.put('chatters', $scope.chatters);
     };
 
     $scope.minimize = function(username) {
@@ -25,25 +32,24 @@ angular.module('txChatApp')
     }
 
     var socket = SocketProvider.io();
-    socket.emit('login', $rootScope.globals.currentUser.login);
+    socket.emit('login', $rootScope.currentUser);
 
     socket.on('logged', function(usersOnline) {
       angular.forEach(usersOnline, function(value, key) {
-        console.log(key);
-        $rootScope.globals.users[key].isOnline = true;
+        $rootScope.users[key].isOnline = true;
       });
       $rootScope.$apply();
     });
 
     socket.on('disconnect', function(username) {
       try{
-        $rootScope.globals.users[username].isOnline = false;
+        $rootScope.users[username].isOnline = false;
         $rootScope.$apply();
       } catch(e){}
     });
 
     socket.on('message', function(message) {
-      if($scope.chatters[message.sender] === undefined && message.sender !== $rootScope.globals.currentUser.login) {
+      if($scope.chatters[message.sender] === undefined && message.sender !== $rootScope.currentUser) {
         var chatter = new Chatter(message.sender);
         $scope.chatters[message.sender] = chatter;
       }
@@ -61,7 +67,6 @@ angular.module('txChatApp')
       message.date = new Date();
       socket.emit('message', message);
       message.content = '';
-      $cookieStore.put('chatters', $scope.chatters);
     }
 
     var Chatter = function(username) {

@@ -11,11 +11,15 @@ angular.module('txChatApp')
       /* Authentification de l'utilisateur */
       Authentication.login(user).then(function(isLogged) {
         if(isLogged) {
-          Authentication.setCredentials(user);
+          if (user.remember) {
+            Authentication.setCredentials(user);
+          }
+          $rootScope.currentUser = user.login;
           $location.path('/room');
         }
       }, function(msg){
         $scope.error = msg;
+        console.log(msg)
       });
     }
   });

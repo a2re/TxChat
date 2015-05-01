@@ -1,22 +1,20 @@
-.col-md-2, .col-md-10{
-  padding:0;
-}
-.panel{
-  margin-bottom: 0px;
-}
 .chat-window{
   float:right;
-  width: 226px;
+  width: 250px;
   margin-right: 10px;
   padding: 0 !important;
   > div {
     padding: 0 !important;
   }
   .panel {
+    margin-bottom: 0px;
     background: #e5e5e5;
     .panel-footer {
       padding: 10px 5px;
     }
+  }
+  .col-md-2, .col-md-10{
+     padding:0;
   }
 }
 .chat-window > div > .panel{
@@ -26,13 +24,19 @@
   padding:2px 10px;
 }
 .msg_container_base{
+  position: relative;
   background: transparent;
   margin: 0;
   padding: 0 10px 0;
   height:250px;
   overflow-x:hidden;
-  display: table-cell;
-  vertical-align: bottom;
+  overflow-y: auto;
+  > div {
+    display: table-cell;
+    vertical-align: bottom;
+    position: absolute;
+    bottom: 0;
+  }
 }
 .top-bar {
   background: #666;

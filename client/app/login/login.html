@@ -9,7 +9,7 @@
       <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" ng-model="user.password" required>
       <div id="remember" class="checkbox">
         <label>
-          <input type="checkbox" value="remember-me"> Garder ma session active
+          <input type="checkbox" value="remember-me" ng-model="user.remember"> Garder ma session active
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Connexion</button>
@@ -17,8 +17,8 @@
     <a href="#" class="forgot-password">
       Mot de passe oublié ?
     </a>
-    <div>
-      {{user}}
+    <div ng-show="error" class="alert alert-danger" style="text-align: center">
+      {{error}}
     </div>
   </div><!-- /card-container -->
 </div><!-- /container -->

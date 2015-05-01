@@ -1,24 +1,19 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container">
-  <div class="col-md-3 col-xs-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">Utilisateurs</div>
-      <ul class="list-group">
-        <li ng-repeat="(id, u) in globals.users" ng-if="u.login != globals.currentUser.login" ng-class="{online: u.isOnline}"
-            class="list-group-item" ng-click="chatWith(u.login)">
-          {{u.login}}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-1 main">
+      <div class="box">
+        <chat-box ng-repeat="(chatter, box) in chatters"></chat-box>
+      </div>
+    </div>
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="#">Utilisateurs<span class="sr-only">(current)</span></a></li>
+        <li ng-repeat="(id, u) in users" ng-if="u.login !== currentUser" ng-class="{online: u.isOnline}" ng-click="chatWith(u.login)">
+          <a href="#">{{u.login}} <i class="glyphicon glyphicon-comment"></i></a>
         </li>
       </ul>
     </div>
   </div>
-  <div class="col-xs-9">
-
-    <div class="col-md-12">
-    </div>
-  </div>
-  <div class="box">
-    <chat-box ng-repeat="(chatter, box) in chatters"></chat-box>
-  </div>
-
-</div><!-- /container -->
+</div>

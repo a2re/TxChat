@@ -7,17 +7,13 @@ angular.module('txChatApp')
 
     service.getUsers = function() {
       var deferred = $q.defer();
-      if(! service.users) {
-        $http.get('users.json')
-          .success(function (data, status) {
-            service.users = data;
-            deferred.resolve(service.users);
-          }).error(function (data, status) {
-            deferred.reject('Serveur injoignable !!!');
-          });
-      } else {
-        deferred.resolve(service.users);
-      }
+      $http.get('users.json')
+        .success(function (data, status) {
+          service.users = data;
+          deferred.resolve(service.users);
+        }).error(function (data, status) {
+          deferred.reject('Serveur injoignable !!!');
+        });
       return deferred.promise;
     }
 
@@ -25,12 +21,13 @@ angular.module('txChatApp')
       var deferred = $q.defer();
       var isLogged = false;
       var users = service.getUsers().then(function(users) {
-        angular.forEach(users, function(value) {
-          if(value.login === user.login && value.password === md5.createHash(user.password)) {
-            isLogged = true;
-          }
-        });
-        deferred.resolve(isLogged);
+        if(users[user.login] !== undefined && users[user.login].password === md5.createHash(user.password)) {
+          isLogged = true;
+          $rootScope.users = users;
+          deferred.resolve(isLogged);
+        } else {
+          deferred.reject('Identifiants incorrects, veuillez consuler le fichiers JSON');
+        }
       }, function(msg) {
         deferred.reject(msg)
       });
@@ -44,8 +41,7 @@ angular.module('txChatApp')
         currentUser: {
           login: user.login,
           authdata: authdata
-        },
-        users : service.users
+        }
       };
       $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
       $cookieStore.put('globals', $rootScope.globals);
