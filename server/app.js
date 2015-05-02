@@ -23,9 +23,7 @@ server.listen(config.port, config.ip, function () {
 var io = require('socket.io')(server);
 
 var users = {};
-
 io.on('connection', function(socket) {
-  console.log('new user')
 
   socket.on('login', function(username) {
     if(users[username] === undefined) {
@@ -33,7 +31,6 @@ io.on('connection', function(socket) {
       users[username] = socket.id;
     }
     io.emit('logged', users);
-    console.log(users);
   });
 
   socket.on('message', function(message) {
@@ -49,9 +46,7 @@ io.on('connection', function(socket) {
   socket.on('disconnection', disconnection);
 
   function disconnection() {
-    console.log(socket.username + " disconnected");
     delete users[socket.username];
-    console.log(users);
     io.emit('disconnect', socket.username);
   }
 });

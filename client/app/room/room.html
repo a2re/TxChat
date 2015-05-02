@@ -11,7 +11,7 @@
       <ul class="nav nav-sidebar">
         <li class="active"><a href="#">Utilisateurs<span class="sr-only">(current)</span></a></li>
         <li ng-repeat="(id, u) in users" ng-if="u.login !== currentUser" ng-class="{online: u.isOnline}" ng-click="chatWith(u.login)">
-          <a href="#">{{u.login}} <i class="glyphicon glyphicon-comment"></i></a>
+          <a href="#">{{u.login}} <i ng-if="u.isOnline" class="glyphicon glyphicon-comment"></i></a>
         </li>
       </ul>
     </div>

@@ -19,7 +19,6 @@ angular.module('txChatApp')
         }
       }, function(msg){
         $scope.error = msg;
-        console.log(msg)
       });
-    }
+    };
   });
